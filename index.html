@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf8"/>
+        <title>Link Grabber</title>
+        <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="./style.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <div class="column" id="a">salut</div>
+            <div class="column" id="b">prout</div>
+            <div class="column" id="c">salut</div>
+        </div>
+        <script src="./node_modules/jquery/dist/jquery.js"></script>
+        <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <script>
+            const container = jQuery(".container");
+            const columns = document.getElementsByClassName("column");
+            for (div of columns) {
+                div.addEventListener('click', function () {
+                    for (otherDiv of columns) {
+                            otherDiv.style.height = '48px';
+                    }
+                    if (this.style.height !== '100px') {
+                        this.style.height = '100px';
+                    }
+                })
+            }
+        </script>
+    </body>
+</html>

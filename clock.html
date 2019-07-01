@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf8"/>
+        <title>JS Clock</title>
+        <link rel="stylesheet" href="./clock.css"/>
+    </head>
+    <body>
+        <div class="time-container">
+            <span id="time"></span>
+        </div>
+        <script>
+            const body = document.querySelector('body');
+            const time = document.querySelector('#time');
+            displayHour(body, time);
+            const interval = setInterval(() =>{
+                displayHour(body, time);
+            }, 1000);
+
+            function displayHour(bodyElement, timeElement) {
+                const date = new Date();
+                let seconds = date.getSeconds();
+                let minutes = date.getMinutes();
+                let hours = date.getHours();
+                if (seconds.toString().length === 1) {
+                    seconds = `0${seconds}`;
+                }
+                if (minutes.toString().length === 1) {
+                    minutes = `0${minutes}`;
+                }
+                if (hours.toString().length === 1) {
+                    hours = `0${hours}`;
+                } 
+                bodyElement.style.backgroundColor = `#${hours}${minutes}${seconds}`;
+                timeElement.innerHTML = `${hours}:${minutes}:${seconds}`;
+            }
+        </script>
+    </body>
+</html>
