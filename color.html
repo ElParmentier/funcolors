@@ -44,14 +44,13 @@
                     tempInput.value = this.colorHexValue;
                     document.body.appendChild(tempInput);
                     tempInput.select();
-                    console.log(tempInput.value);
                     document.execCommand("copy");
                     document.body.removeChild(tempInput);
                 });
             }
 
             function getRandomColor() {
-                // Generates a number between 000000 and FFFFFF and casts it to string
+                // Generates a number between 000000 and FFFFFF (0 and 16777216) and casts it to string
                 let randomColor = (Math.floor(Math.random() * 16777216)).toString(16);
                 while (randomColor.length < 6) {
                     randomColor += '0';
