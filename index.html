@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <link href="./style.css" rel="stylesheet">
+        <link href="./colors.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <span class="content">Welcome to Colors</span>
+            <button id="goToColors">></button>
+        </div>
+        <div class="colorsContainer">
+            <div class="column">
+                <input type="hidden" value="">
+                <span class="textValue"></span>
+            </div>
+            <div class="column">
+                <input type="hidden" value="">
+                <span class="textValue"></span>
+            </div>
+            <div class="column">
+                <input type="hidden" value="">
+                <span class="textValue"></span>
+            </div>
+            <div class="column">
+                <input type="hidden" value="">
+                <span class="textValue"></span>
+            </div>
+            <div class="column">
+                <input type="hidden" value="">
+                <span class="textValue"></span>
+            </div>
+            <button id="reroll">Try again?</button>
+        </div>
+        <script>
+            // INSTANCIATE
+            const container = document.querySelector('.container');
+            const colorsContainer = document.querySelector('.colorsContainer');
+            const goToColorsButton = container.querySelector('#goToColors');
+            const columns = colorsContainer.getElementsByClassName('column');
+            const cubicEasing = generateCubicEasing();
+            let randomColor;
+
+            // ADD EVENTS TO HTML ELEMENTS
+            for (const column of columns) {
+                randomColor = getRandomColor();
+                column.style.backgroundColor = randomColor;
+                column.querySelector('.textValue').innerHTML = randomColor;
+                column.colorHexValue = randomColor;
+                column.addEventListener('click', function () {
+                    copyHexValueToClipBoard(this.colorHexValue);
+                });
+            }
+
+            goToColorsButton.addEventListener('click', () => {
+                let quadArrayIndex = 0;
+                const animateScroll = setInterval(() => {
+                    goToColorsButton.style.opacity = 0;
+                    if (document.documentElement.scrollTop >= window.innerHeight) {
+                        window.scrollTo(0, window.innerHeight);
+                        clearInterval(animateScroll);
+                    } else {
+                        window.scrollBy(0, cubicEasing[quadArrayIndex++] * window.innerHeight);
+                    }
+                }, 10);
+            });
+
+            // MAKE SURE WE ARE ON TOP ON PAGE LOAAAAAD
+            document.addEventListener('DOMContentLoaded', () => {
+                window.scrollTo(0, 0);
+            });
+
+            // DECLARE FUN-FUN-FUNCTIONS
+            function getRandomColor() {
+                // Generates a number between 000000 and FFFFFF (0 and 16777216) and casts it to string
+                let randomColor = (Math.floor(Math.random() * 16777216)).toString(16);
+                return `#${randomColor.padEnd(6, '0')}`;
+            }
+
+            function copyHexValueToClipBoard(hexValue){
+                // creates a out of bound input element to select and copy the hex string
+                tempInput = document.createElement("input");
+                tempInput.style.position = "absolute";
+                tempInput.style.top = "-1000px";
+                tempInput.style.left= "-1000px";
+                tempInput.value = hexValue;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+            }
+
+            function generateCubicEasing() {
+                // most simple cubic easing I could come up with on the spot
+                const quadEasing = (t) => t * t * t;
+                let easingVals = [];
+                for(let i = 0.2; i < 1; i += 0.01) {
+                    easingVals.push(quadEasing(i));
+                }
+                return easingVals;
+            }
+
+            // looking for the girl of my life, preferably with two functional kidneys
+            // Blood type O- a plus
+        </script>
+    </body>
+</html>
