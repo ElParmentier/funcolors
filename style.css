@@ -2,43 +2,92 @@ body, html {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    background-color: #F3FDEC;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .container {
-    background: linear-gradient(135deg, #FFF 0%, #FEFEFE 60%, #FFF 100%);
-    width: 100%;
+    width: 70%;
     padding-top: 15px;
     height: calc(100vh - 15px);
+    margin-left: 15%;
     box-shadow: 2px 10px 10px #CCC;
+    background: linear-gradient(5deg, #F3FDEC 0%, #DFE6CA 10%, #F3FDEC 100%);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     transition: all 1s;
+}
+
+#descriptionContainer {
+    margin-top: 72px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+    color: #627D4F;
+    padding: 25px 10px 50px 10px;
+}
+
+#descriptionContainer:nth-child(0) {
+    box-shadow: 0px 10px 10px #888;
+    color: red;
+}
+
+.contentColumn {
+    padding: 0px 20px;
+    width: 100%;
+    text-align: justify;
+    line-height: 30px;
+    letter-spacing: 0.5px;
+}
+
+.welcomeText {
+    font-size: 16px;
+}
+
+.welcomeText::first-letter {
+    text-transform: uppercase;
+    color: #3A4A2F;
+    font-size: 18px;
+}
+
+.icon {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #3A4A2F;
 }
 
 .content {
     width: 100%;
     font-size: 48px;
-    color: #444;
+    color: #627D4F;
     line-height: 48px;
-    text-shadow: #FFF 0px 2px 10px;
-    letter-spacing: -2px;
+    text-shadow: #ACA 0px 7.5px 5px;
+    letter-spacing: -3px;
     text-align: center;
 }
 
 #goToColors, #reroll {
-    background-color: #FAFAFA;
+    color: #627D4F;
+    font-weight: 500;
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 0.1);
     height: 72px;
-    border-radius: 50%;
+    border-radius: 45%;
     outline: 0;
     border: 0;
-    box-shadow: 0px 5px 10px #999;
+    box-shadow: 0px 10px 10px #CCC;
     position: fixed;
     bottom: 72px;
     width: 72px;
     left: calc(50% - 36px);
     transition: all 0.5s;
+}
+
+#reroll {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 10px 25px #333;
 }
 
 #goToColors {
@@ -52,5 +101,7 @@ body, html {
 
 #goToColors:hover, #reroll:hover {
     cursor: pointer;
-    box-shadow: 0px 5px 10px #444;
+    box-shadow: 0px 5px 5px #777;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 0.8);
 }

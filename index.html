@@ -1,108 +1,158 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <link href="./style.css" rel="stylesheet">
-        <link href="./colors.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container">
-            <span class="content">Welcome to Colors</span>
-            <button id="goToColors">></button>
+  <head>
+    <meta charset="utf-8" />
+    <link href="./style.css" rel="stylesheet" />
+    <link href="./colors.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/db2d79bf21.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <span class="content">Welcome to Colors</span>
+      <div id="descriptionContainer">
+        <div class="contentColumn">
+          <div class="icon"><i class="fas fa-vial fa-3x"></i></div>
+          <div class="welcomeText">
+              Tired of looking for a color scheme for your 
+              personal website or blog? Then look no further,
+              this website is hand-built to save you the hustle of
+              looking for beautiful colors on your own.
+          </div>
         </div>
-        <div class="colorsContainer">
-            <div class="column">
-                <input type="hidden" value="">
-                <span class="textValue"></span>
-            </div>
-            <div class="column">
-                <input type="hidden" value="">
-                <span class="textValue"></span>
-            </div>
-            <div class="column">
-                <input type="hidden" value="">
-                <span class="textValue"></span>
-            </div>
-            <div class="column">
-                <input type="hidden" value="">
-                <span class="textValue"></span>
-            </div>
-            <div class="column">
-                <input type="hidden" value="">
-                <span class="textValue"></span>
-            </div>
-            <button id="reroll">Try again?</button>
+        <div class="contentColumn">
+          <div class="icon"><i class="fas fa-palette fa-3x"></i></div>
+          <div class="welcomeText">
+              Using our amazing trademarked algorithms, backed up with
+              the latest in machine learning and Big Data analysis, we
+              are able to generate the perfect color scheme for your needs,
+              all at the single press of a button.
+          </div>
         </div>
-        <script>
-            // INSTANCIATE
-            const container = document.querySelector('.container');
-            const colorsContainer = document.querySelector('.colorsContainer');
-            const goToColorsButton = container.querySelector('#goToColors');
-            const columns = colorsContainer.getElementsByClassName('column');
-            const cubicEasing = generateCubicEasing();
-            let randomColor;
+        <div class="contentColumn">
+          <div class="icon"><i class="fas fa-atom fa-3x"></i></div>
+          <div class="welcomeText">
+              This page is divided in three columns, with 
+              icons on top of each, and has a button that scrolls the page
+              when clicked, displaying the sheer amount of new technologies 
+              that are being used right now.
+          </div>          
+        </div>
+      </div>
+      <button id="goToColors"><i class="fas fa-angle-down"></i></button>
+    </div>
+    <div class="colorsContainer">
+      <div class="column">
+        <input type="hidden" value="" />
+        <span class="textValue"></span>
+      </div>
+      <div class="column">
+        <input type="hidden" value="" />
+        <span class="textValue"></span>
+      </div>
+      <div class="column">
+        <input type="hidden" value="" />
+        <span class="textValue"></span>
+      </div>
+      <div class="column">
+        <input type="hidden" value="" />
+        <span class="textValue"></span>
+      </div>
+      <div class="column">
+        <input type="hidden" value="" />
+        <span class="textValue"></span>
+      </div>
+      <button id="reroll">
+            <i class="fas fa-redo fa-2x"></i>
+      </button>
+    </div>
+    <script>
+      // INSTANCIATE
+      const container = document.querySelector(".container");
+      const colorsContainer = document.querySelector(".colorsContainer");
+      const goToColorsButton = container.querySelector("#goToColors");
+      const rerollButton = colorsContainer.querySelector("#reroll");
+      const columns = colorsContainer.getElementsByClassName("column");
+      const cubicEasing = generateCubicEasing();
+      let randomColor;
 
-            // ADD EVENTS TO HTML ELEMENTS
-            for (const column of columns) {
-                randomColor = getRandomColor();
-                column.style.backgroundColor = randomColor;
-                column.querySelector('.textValue').innerHTML = randomColor;
-                column.colorHexValue = randomColor;
-                column.addEventListener('click', function () {
-                    copyHexValueToClipBoard(this.colorHexValue);
-                });
-            }
+      // ADD EVENTS TO HTML ELEMENTS
+      for (const column of columns) {
+        randomColor = getRandomColor();
+        column.style.backgroundColor = randomColor;
+        column.querySelector(".textValue").innerHTML = randomColor;
+        column.colorHexValue = randomColor;
+        column.addEventListener("click", function() {
+          copyHexValueToClipBoard(this.colorHexValue);
+        });
+      }
 
-            goToColorsButton.addEventListener('click', () => {
-                let quadArrayIndex = 0;
-                const animateScroll = setInterval(() => {
-                    goToColorsButton.style.opacity = 0;
-                    if (document.documentElement.scrollTop >= window.innerHeight) {
-                        window.scrollTo(0, window.innerHeight);
-                        clearInterval(animateScroll);
-                    } else {
-                        window.scrollBy(0, cubicEasing[quadArrayIndex++] * window.innerHeight);
-                    }
-                }, 10);
+      goToColorsButton.addEventListener("click", () => {
+        let quadArrayIndex = 0;
+        const animateScroll = setInterval(() => {
+          goToColorsButton.style.opacity = 0;
+          rerollButton.style.opacity = 1;
+          if (document.documentElement.scrollTop >= window.innerHeight) {
+            window.scrollTo(0, window.innerHeight);
+            goToColorsButton.style.display = 'none';
+            clearInterval(animateScroll);
+          } else {
+            window.scrollBy(
+              0,
+              cubicEasing[quadArrayIndex++] * window.innerHeight
+            );
+          }
+        }, 10);
+      });
+
+      rerollButton.addEventListener('click', function() {
+        for (const column of columns) {
+            randomColor = getRandomColor();
+            column.style.backgroundColor = randomColor;
+            column.querySelector(".textValue").innerHTML = randomColor;
+            column.colorHexValue = randomColor;
+            column.addEventListener("click", function() {
+            copyHexValueToClipBoard(this.colorHexValue);
             });
+        }
+      });
 
-            // MAKE SURE WE ARE ON TOP ON PAGE LOAAAAAD
-            document.addEventListener('DOMContentLoaded', () => {
-                window.scrollTo(0, 0);
-            });
+      // MAKE SURE WE ARE ON TOP ON PAGE LOAAAAAD
+      document.addEventListener("DOMContentLoaded", () => {
+        window.scrollTo(0, 0);
+      });
 
-            // DECLARE FUN-FUN-FUNCTIONS
-            function getRandomColor() {
-                // Generates a number between 000000 and FFFFFF (0 and 16777216) and casts it to string
-                let randomColor = (Math.floor(Math.random() * 16777216)).toString(16);
-                return `#${randomColor.padEnd(6, '0')}`;
-            }
+      // DECLARE FUN-FUN-FUNCTIONS
+      function getRandomColor() {
+        // Generates a number between 000000 and FFFFFF (0 and 16777216) and casts it to string
+        let randomColor = Math.floor(Math.random() * 16777216).toString(16);
+        return `#${randomColor.padEnd(6, "0")}`;
+      }
 
-            function copyHexValueToClipBoard(hexValue){
-                // creates a out of bound input element to select and copy the hex string
-                tempInput = document.createElement("input");
-                tempInput.style.position = "absolute";
-                tempInput.style.top = "-1000px";
-                tempInput.style.left= "-1000px";
-                tempInput.value = hexValue;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand("copy");
-                document.body.removeChild(tempInput);
-            }
+      function copyHexValueToClipBoard(hexValue) {
+        // creates a out of bound input element to select and copy the hex string
+        tempInput = document.createElement("input");
+        tempInput.style.position = "absolute";
+        tempInput.style.top = "-1000px";
+        tempInput.style.left = "-1000px";
+        tempInput.value = hexValue;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+      }
 
-            function generateCubicEasing() {
-                // most simple cubic easing I could come up with on the spot
-                const quadEasing = (t) => t * t * t;
-                let easingVals = [];
-                for(let i = 0.2; i < 1; i += 0.01) {
-                    easingVals.push(quadEasing(i));
-                }
-                return easingVals;
-            }
+      function generateCubicEasing() {
+        // most simple cubic easing I could come up with on the spot
+        const quadEasing = t => t * t * t;
+        let easingVals = [];
+        for (let i = 0.2; i < 1; i += 0.01) {
+          easingVals.push(quadEasing(i));
+        }
+        return easingVals;
+      }
 
-            // looking for the girl of my life, preferably with two functional kidneys
-            // Blood type O- a plus
-        </script>
-    </body>
+      // looking for the girl of my life, preferably with two functional kidneys
+      // Blood type O- a plus
+    </script>
+  </body>
 </html>
