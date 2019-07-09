@@ -166,7 +166,7 @@
           const interval = setInterval(() => {
               i += 0.01;
               if (parseInt(tempDiv.style.bottom, 10) < 72) {
-                tempDiv.style.bottom = `${parseInt(tempDiv.style.bottom, 10) + 22 * i}px`
+                tempDiv.style.bottom = `${parseInt(tempDiv.style.bottom, 10) + (10 * i) ** 3}px`
               }
               tempDiv.style.backgroundColor = `${copiedColor}`;
               console.log(tempDiv.style.backgroundColor);
